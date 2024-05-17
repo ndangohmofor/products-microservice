@@ -35,3 +35,6 @@ build/
 ### maven ###
 .mvn/
 mvn**
+
+### application properties file #########
+application*.properties
