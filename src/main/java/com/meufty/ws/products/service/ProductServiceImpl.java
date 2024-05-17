@@ -38,8 +38,8 @@ public class ProductServiceImpl implements ProductService {
             }
         });
 
-        future.join(); // Wait for the future to complete before return the product id to caller. => Synchronous operation.
-
+//        future.join(); // Wait for the future to complete before return the product id to caller. => Synchronous operation.
+        LOGGER.info("*************** Returning product id: " + productId + " ***************");
         return productId;
     }
 }
