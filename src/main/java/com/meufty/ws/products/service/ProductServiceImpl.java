@@ -31,10 +31,10 @@ public class ProductServiceImpl implements ProductService {
 
         future.whenComplete((result, exception) -> {
             if (exception != null) {
-                LOGGER.error("Error while sending product created event", exception.getMessage());
+                LOGGER.error("Error while sending product created event: " + exception.getMessage());
                 throw new RuntimeException(exception);
             } else {
-                LOGGER.info("Product created event sent successfully" + result.getRecordMetadata());
+                LOGGER.info("Product created event sent successfully: " + result.getRecordMetadata().toString());
             }
         });
 
