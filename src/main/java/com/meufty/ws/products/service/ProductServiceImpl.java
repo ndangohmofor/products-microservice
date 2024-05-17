@@ -34,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
                 LOGGER.error("Error while sending product created event: " + exception.getMessage());
                 throw new RuntimeException(exception);
             } else {
-                LOGGER.info("Product created event sent successfully: " + result.getRecordMetadata().toString());
+                LOGGER.info("Product created event sent successfully: Partition - " + result.getRecordMetadata().partition() + ". Offset - " + result.getRecordMetadata().offset());
             }
         });
 
