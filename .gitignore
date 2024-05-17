@@ -37,4 +37,7 @@ build/
 mvn**
 
 ### application properties file #########
-application*.properties
+application.properties
+application.yml
+application-local.properties
+application-local.yml
