@@ -20,25 +20,26 @@ public class ProductServiceImpl implements ProductService {
         this.template = template;
     }
     @Override
-    public String createProduct(CreateProductrestModel product) {
+    public String createProduct(CreateProductrestModel product) throws Exception {
         String productId = UUID.randomUUID().toString();
 
         //TODO: Save product in database
 
         ProductCreatedEvent productCreatedEvent = new ProductCreatedEvent(productId, product.getTitle(), product.getPrice(), product.getQuantity());
 
-        CompletableFuture<SendResult<String, ProductCreatedEvent>> future = template.send("product-created-event-topic", productId, productCreatedEvent);
+        SendResult<String, ProductCreatedEvent> result = template.send("product-created-event-topic", productId, productCreatedEvent).get();
 
-        future.whenComplete((result, exception) -> {
-            if (exception != null) {
-                LOGGER.error("Error while sending product created event: " + exception.getMessage());
-                throw new RuntimeException(exception);
-            } else {
-                LOGGER.info("Product created event sent successfully: Topic - " + result.getRecordMetadata().topic() + ", Partion - " + result.getRecordMetadata().partition() + ". Offset - " + result.getRecordMetadata().offset());
-            }
-        });
+//        future.whenComplete((result, exception) -> {
+//            if (exception != null) {
+//                LOGGER.error("Error while sending product created event: " + exception.getMessage());
+//                throw new RuntimeException(exception);
+//            } else {
+//                LOGGER.info("Product created event sent successfully: Topic - " + result.getRecordMetadata().topic() + ", Partion - " + result.getRecordMetadata().partition() + ". Offset - " + result.getRecordMetadata().offset());
+//            }
+//        });
+//
+//        //future.join(); // Wait for the future to complete before return the product id to caller. => Synchronous operation.
 
-//        future.join(); // Wait for the future to complete before return the product id to caller. => Synchronous operation.
         LOGGER.info("*************** Returning product id: " + productId + " ***************");
         return productId;
     }
