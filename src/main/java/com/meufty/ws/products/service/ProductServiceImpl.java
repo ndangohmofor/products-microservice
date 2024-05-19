@@ -27,7 +27,13 @@ public class ProductServiceImpl implements ProductService {
 
         ProductCreatedEvent productCreatedEvent = new ProductCreatedEvent(productId, product.getTitle(), product.getPrice(), product.getQuantity());
 
+        LOGGER.info("Before publishing a ProductCreatedEvent");
+
         SendResult<String, ProductCreatedEvent> result = template.send("product-created-event-topic", productId, productCreatedEvent).get();
+
+        LOGGER.info("Topic: " + result.getRecordMetadata().topic());
+        LOGGER.info("Partition: " + result.getRecordMetadata().partition());
+        LOGGER.info("Offset: " + result.getRecordMetadata().offset());
 
 //        future.whenComplete((result, exception) -> {
 //            if (exception != null) {
