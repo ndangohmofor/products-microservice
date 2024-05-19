@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+import java.util.Objects;
+
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -19,12 +22,14 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createProduct(@RequestBody CreateProductrestModel product) {
+    public ResponseEntity<Object> createProduct(@RequestBody CreateProductrestModel product) {
         String productId = null;
         try {
             productId = productService.createProduct(product);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ErrorMessage(new Date(), e.getMessage(), "/products"));
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(productId);
     }
