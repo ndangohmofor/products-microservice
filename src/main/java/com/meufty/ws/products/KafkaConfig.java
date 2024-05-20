@@ -1,11 +1,14 @@
 package com.meufty.ws.products;
 
+import com.meufty.ws.products.service.ProductCreatedEvent;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
+import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+import org.springframework.kafka.core.ProducerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +50,12 @@ public class KafkaConfig {
 
         return config;
     }
+
+    @Bean
+    ProducerFactory<String, ProductCreatedEvent> producerFactory() {
+        return new DefaultKafkaProducerFactory<>(producerConfigs());
+    }
+
     @Bean
     NewTopic createTopic() {
         return TopicBuilder.name("product-created-event-topic")
