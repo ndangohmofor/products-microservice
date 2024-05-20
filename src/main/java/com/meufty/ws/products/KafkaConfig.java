@@ -20,22 +20,22 @@ public class KafkaConfig {
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootStrapServers;
 
-    @Value("${spring.kafka.key-serializer}")
+    @Value("${spring.kafka.producer.key-serializer}")
     private String keySerializer;
 
-    @Value("{spring.kafka.value-serializer}")
+    @Value("${spring.kafka.producer.value-serializer}")
     private String valueSerializer;
 
-    @Value("${spring.kafka.acks}")
+    @Value("${spring.kafka.producer.acks}")
     private String acks;
 
-    @Value("${spring.kafka.delivery-timeout-ms}")
+    @Value("${spring.kafka.producer.properties.delivery.timeout.ms}")
     private String deliveryTimeout;
 
-    @Value("${spring.kafka.linger-ms}")
+    @Value("${spring.kafka.producer.properties.linger.ms}")
     private String linger;
 
-    @Value("${spring.kafka.request-timeout-ms}")
+    @Value("${spring.kafka.producer.properties.request.timeout.ms}")
     private String requestTimeout;
 
     Map<String, Object> producerConfigs(){
