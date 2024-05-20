@@ -25,6 +25,9 @@ public class KafkaConfig {
     @Value("${spring.kafka.acks}")
     private String acks;
 
+    @Value("${spring.kafka.delivery-timeout-ms}")
+    private String deliveryTimeout;
+
     Map<String, Object> producerConfigs(){
         Map<String, Object> config = new HashMap<>();
 
@@ -32,6 +35,7 @@ public class KafkaConfig {
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, keySerializer);
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, valueSerializer);
         config.put(ProducerConfig.ACKS_CONFIG, acks);
+        config.put(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG, deliveryTimeout);
 
         return config;
     }
