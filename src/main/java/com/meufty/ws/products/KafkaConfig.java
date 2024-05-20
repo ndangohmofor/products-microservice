@@ -28,6 +28,9 @@ public class KafkaConfig {
     @Value("${spring.kafka.delivery-timeout-ms}")
     private String deliveryTimeout;
 
+    @Value("${spring.kafka.linger-ms}")
+    private String linger;
+
     Map<String, Object> producerConfigs(){
         Map<String, Object> config = new HashMap<>();
 
@@ -36,6 +39,7 @@ public class KafkaConfig {
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, valueSerializer);
         config.put(ProducerConfig.ACKS_CONFIG, acks);
         config.put(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG, deliveryTimeout);
+        config.put(ProducerConfig.LINGER_MS_CONFIG, linger);
 
         return config;
     }
