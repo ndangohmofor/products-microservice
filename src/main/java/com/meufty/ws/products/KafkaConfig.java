@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 
 import java.util.HashMap;
@@ -54,6 +55,11 @@ public class KafkaConfig {
     @Bean
     ProducerFactory<String, ProductCreatedEvent> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
+    }
+
+    @Bean
+    KafkaTemplate<String, ProductCreatedEvent> kafkaTemplate(){
+        return new KafkaTemplate<String, ProductCreatedEvent>(producerFactory());
     }
 
     @Bean
