@@ -19,11 +19,15 @@ public class KafkaConfig {
     @Value("${spring.kafka.key-serializer}")
     private String keySerializer;
 
+    @Value("{spring.kafka.value-serializer}")
+    private String valueSerializer;
+
     Map<String, Object> producerConfigs(){
         Map<String, Object> config = new HashMap<>();
 
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootStrapServers);
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, keySerializer);
+        config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, valueSerializer);
 
         return config;
     }
