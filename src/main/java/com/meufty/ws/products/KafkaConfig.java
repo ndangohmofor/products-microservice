@@ -22,12 +22,16 @@ public class KafkaConfig {
     @Value("{spring.kafka.value-serializer}")
     private String valueSerializer;
 
+    @Value("${spring.kafka.acks}")
+    private String acks;
+
     Map<String, Object> producerConfigs(){
         Map<String, Object> config = new HashMap<>();
 
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootStrapServers);
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, keySerializer);
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, valueSerializer);
+        config.put(ProducerConfig.ACKS_CONFIG, acks);
 
         return config;
     }
