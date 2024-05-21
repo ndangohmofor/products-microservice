@@ -1,5 +1,6 @@
 package com.meufty.ws.products.service;
 
+import com.meufty.ws.core.ProductCreatedEvent;
 import com.meufty.ws.products.rest.CreateProductrestModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
