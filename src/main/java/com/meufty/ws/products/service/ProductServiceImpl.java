@@ -33,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
 
         ProducerRecord<String, ProductCreatedEvent> record = new ProducerRecord<>("product-created-event-topic", productId, productCreatedEvent);
 
-        record.headers().add("messageId", UUID.randomUUID().toString().getBytes());
+        record.headers().add("messageId", "1234".getBytes());
 
         SendResult<String, ProductCreatedEvent> result = template.send(record).get();
 
