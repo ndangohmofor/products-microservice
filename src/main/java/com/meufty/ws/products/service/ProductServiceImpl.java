@@ -2,6 +2,7 @@ package com.meufty.ws.products.service;
 
 import com.meufty.ws.core.ProductCreatedEvent;
 import com.meufty.ws.products.rest.CreateProductrestModel;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.kafka.support.SendResult;
@@ -30,7 +31,11 @@ public class ProductServiceImpl implements ProductService {
 
         LOGGER.info("Before publishing a ProductCreatedEvent");
 
-        SendResult<String, ProductCreatedEvent> result = template.send("product-created-event-topic", productId, productCreatedEvent).get();
+        ProducerRecord<String, ProductCreatedEvent> record = new ProducerRecord<>("product-created-event-topic", productId, productCreatedEvent);
+
+        record.headers().add("messageId", UUID.randomUUID().toString().getBytes());
+
+        SendResult<String, ProductCreatedEvent> result = template.send(record).get();
 
         LOGGER.info("Topic: " + result.getRecordMetadata().topic());
         LOGGER.info("Partition: " + result.getRecordMetadata().partition());
