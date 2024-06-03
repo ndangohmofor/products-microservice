@@ -29,7 +29,7 @@ public class ProductsServiceIntegrationTest {
     @Autowired
     private ProductService productService;
 
-    @Autowired
+
     private EmbeddedKafkaBroker embeddedKafkaBroker;
 
     @Autowired
@@ -61,6 +61,7 @@ public class ProductsServiceIntegrationTest {
                 ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class,
                 ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class,
                 ConsumerConfig.GROUP_ID_CONFIG, environment.getProperty("spring.kafka.consumer.group-id"),
-                ConsumerConfig.);
+                JsonDeserializer.TRUSTED_PACKAGES, environment.getProperty("spring.kafka.consumer.properties.spring.json.trusted.packages"),
+                ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, environment.getProperty("spring.kafka.consumer.auto-offset-reset"));
     }
 }
