@@ -45,6 +45,7 @@ public class ProductsServiceIntegrationTest {
     private ProductService productService;
 
 
+    @Autowired
     private EmbeddedKafkaBroker embeddedKafkaBroker;
 
     @Autowired
