@@ -24,7 +24,6 @@ import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.kafka.test.utils.ContainerTestUtils;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
-
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
